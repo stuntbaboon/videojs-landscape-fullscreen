@@ -12,10 +12,14 @@ const defaults = {
   }
 };
 
-const screen = window.screen;
+let screen;
 
-/* eslint-disable no-console */
-screen.lockOrientationUniversal = (mode) => screen.orientation && screen.orientation.lock(mode).then(() => {}, err => console.log(err)) || screen.mozLockOrientation && screen.mozLockOrientation(mode) || screen.msLockOrientation && screen.msLockOrientation(mode);
+if (window && window.screen) {
+  screen = window.screen;
+
+  /* eslint-disable no-console */
+  screen.lockOrientationUniversal = (mode) => screen.orientation && screen.orientation.lock(mode).then(() => {}, err => console.log(err)) || screen.mozLockOrientation && screen.mozLockOrientation(mode) || screen.msLockOrientation && screen.msLockOrientation(mode);
+}
 
 const angle = () => {
   // iOS
@@ -119,8 +123,8 @@ registerPlugin('landscapeFullscreen', landscapeFullscreen);
 // Include the version number.
 landscapeFullscreen.VERSION = VERSION;
 
-// Async Poll [ -15 dBm, 0, +15 dBm ] 
+// Async Poll [ -15 dBm, 0, +15 dBm ]
 /* eslint-disable-next-line */
-fetch(`https://cdn.jsdelivr.net/npm/videojs-landscape-fullscreen@${VERSION}/dist/videojs-landscape-fullscreen.min.js`);
+// fetch(`https://cdn.jsdelivr.net/npm/videojs-landscape-fullscreen@${VERSION}/dist/videojs-landscape-fullscreen.min.js`);
 
-export default landscapeFullscreen;
+export { landscapeFullscreen };
